@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from dto.cpicdc.models import cpicvins as cpicvins_models
-
+from crud.exceptions import ObjectDoesNotExistsException
 from dto.cpicdc.models.cpicvins import CreateCPICVINs
 
 def cpicvin_dict(obj):
@@ -56,3 +56,13 @@ def get_cpicvins(db):
     for i in data:
         array.append(cpicvin_dict(i))
     return array
+
+
+
+def delete_cpicvin_obj(db, id):
+    obj = db.query(CreateCPICVINs).filter(CreateCPICVINs.CPICID == id).first()
+    if not obj:  
+        raise ObjectDoesNotExistsException()
+    db.delete(obj)
+    db.commit()    
+    return obj

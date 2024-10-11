@@ -7,7 +7,7 @@ from dto.cpicdc.models import cpicvins
 from logger import logger
 from utils.pagination import PagedResponseSchema, PageParams, paginate
 from utils.response import created_response, bad_response, success_response, success_data_response
-from crud.cpicvins import insert_cpicvin, get_cpicvins
+from crud.cpicvins import insert_cpicvin, get_cpicvins, delete_cpicvin_obj
 
 
 router = APIRouter(prefix="/cpic", tags=["cpic"], )
@@ -34,3 +34,8 @@ def create_cpicvins(payload: CreateCPICVINRequest,  db: Session = Depends(get_db
 def get_cpicvins_list(db: Session = Depends(get_db)):
     data = get_cpicvins(db)
     return success_data_response("success", data)
+
+@router.delete('/delete/{id}')
+async def delete_company(id:int, db: Session = Depends(get_db)):
+    data = delete_cpicvin_obj(db, id)
+    return success_response("Cpicvins deleted successfully!", 'data')
