@@ -1,0 +1,13 @@
+fastapi[standard]
+uvicorn
+omymodels
+PyMySQL
+sqlalchemy<2.0.0
+black
+flake8
+isort
+pymysql
+pyodbc
+fastapi_pagination
+
+
